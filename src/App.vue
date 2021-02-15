@@ -181,4 +181,4 @@ export default {
 };
 </script>
 
-<style src="/home/kkv/Projects/vue/crypta/public/app.css"></style>
+<style src="./components/app.css"></style>

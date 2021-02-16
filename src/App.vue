@@ -50,7 +50,7 @@
           :key="t.name"
           @click="select(t)"
           :class="{
-            'border-4': sel === t,
+            'border-4': sel === t
           }"
           class="bg-white overflow-hidden shadow rounded-lg border-purple-800 border-solid cursor-pointer"
         >
@@ -134,21 +134,21 @@ import HelloWorld from "./components/HelloWorld.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    HelloWorld
   },
   data() {
     return {
       ticker: "",
       tickers: [],
       sel: null,
-      graph: [],
+      graph: []
     };
   },
   methods: {
     add() {
       const currentTicker = {
         name: this.ticker,
-        price: "-",
+        price: "-"
       };
       this.tickers.push(currentTicker);
       setInterval(async () => {
@@ -156,7 +156,7 @@ export default {
           `https://min-api.cryptocompare.com/data/price?fsym=${currentTicker.name}&tsyms=USD&api_key=${process.env.TOKEN}`
         );
         const data = await f.json();
-        this.tickers.find((t) => t.name === currentTicker.name).price =
+        this.tickers.find(t => t.name === currentTicker.name).price =
           data.USD > 1 ? data.USD.toFixed(2) : data.USD.toPrecision(2);
         if (this.sel?.name === currentTicker.name) {
           this.graph.push(data.USD);
@@ -166,19 +166,25 @@ export default {
     },
     select(ticker) {
       this.sel = ticker;
-      this.graph = []
+      this.graph = [];
     },
     handleDelete(tickerToRemove) {
-      this.tickers = this.tickers.filter((t) => t !== tickerToRemove);
+      this.tickers = this.tickers.filter(t => t !== tickerToRemove);
     },
     normalizeGraph() {
       const maxValue = Math.max(...this.graph);
       const minValue = Math.min(...this.graph);
       return this.graph.map(
-        price => 5 + ((price - minValue) * 95)/ (maxValue - minValue))
-    },
-  },
+        price => 5 + ((price - minValue) * 95) / (maxValue - minValue)
+      );
+    }
+  }
 };
 </script>
 
-<style src="./components/app.css"></style>
+<style>
+.container mx-auto flex flex-col items-center bg-gray-100 p-4{
+  width: 90vw;
+  height: 80vh;
+}
+</style>
